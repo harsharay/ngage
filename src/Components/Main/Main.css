@@ -1,0 +1,133 @@
+.mainBlock {
+    font-family: 'Raleway', sans-serif;
+}
+
+.mainBlock button {
+    font-size: large;
+    /* font-weight: 500; */
+}
+
+.inputField {
+    width: 55vw;
+}
+
+.textAndButtons {
+    margin-top: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 76vw;
+    margin-left: 9.5%;
+}
+
+.textAndButtons button {
+    margin: 0 15px;
+}
+
+.preview {
+    margin-top: 50px;
+    margin-left: 130px;
+    width: 65vw;
+    margin-left: 330px;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid red; */
+    padding: 10px 10px 48px 10px;
+    border-radius: 12px;
+    -webkit-box-shadow: 0px 11px 21px -15px rgba(182, 224, 248, 43%);
+    -moz-box-shadow: 0px 11px 21px -15px rgba(182, 224, 248, 43%);
+    box-shadow: 0px 11px 21px -15px rgba(182, 224, 248, 43%);
+    /* background-image: linear-gradient(to right, #B6E0F8 , rgba(15, 222, 172, 35%)); */
+    background-image: linear-gradient(to right, rgba(236, 183, 72, 20%) , rgba(236, 183, 72, 2%));
+}
+
+/* .preview-Pin {
+    position: relative;
+    top: -10px;
+    left: 600px;
+} */
+
+.preview-Content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.preview-Text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-left: 38px;
+}
+
+.preview-Title {
+    /* position: absolute;
+    top: 250px;
+    left: 625px; */
+    font-size: 18pt;
+    font-weight: 600;
+}
+
+.preview-Desc {
+    margin-top: 10px;
+    /* padding: 10px; */
+    width: 1000px;
+    font-size: 12pt;
+    line-height: 30px;
+    text-align: left;
+}
+
+.preview-Image {
+    /* position: relative;
+    top: 30px;
+    left: -70px; */
+    width: 150px;
+    height: 110px;
+    /* z-index: 10; */
+    border-radius: 15px;
+}
+
+.preview-Link {
+    margin-top: -10px;
+    /* margin-left: 10px; */
+    font-size: 14pt;
+    font-weight: 600;
+    color: #2D7EC9;
+}
+
+.preview-Pin {
+    margin-top: 20px;
+}
+
+.preview-Pin button {
+    background-color: #757575;
+    color: #eccc87;
+}
+
+.preview-Pin button:hover {
+    background-color: #eccc87;
+    color: #757575;
+}
+
+.comments {
+    margin-top: 80px;
+}
+
+.commentsTitle {
+    text-align: left;
+    margin-left: 23.2%;
+    font-size: x-large;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.commentsInput {
+    width: 50vw;
+}
