@@ -11,6 +11,51 @@
     width: 55vw;
 }
 
+.googleSignin {
+    background-color: rgb(184, 214, 236) !important;
+    color: black !important;
+    position: absolute;
+    left: 650px;
+    top: 30px;
+    border-radius: 30px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 600px; */
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+.googleIconSignin {
+    margin-right: 10px;
+    margin-bottom: 2px;
+    font-size: 30px;
+}
+
+.signedDetails {
+    position: absolute;
+    top: 30px;
+    left: 1500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 2px solid red; */
+    width: 15%;
+}
+
+.googleSignOut {
+    background-color: rgb(184, 214, 236) !important;
+    color: black !important;
+    border-radius: 30px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 600px; */
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
 .textAndButtons {
     margin-top: 100px;
     height: 100px;
