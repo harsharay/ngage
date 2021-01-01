@@ -29,7 +29,7 @@ export const googleSignin = () => auth.signInWithPopup(provider)
 //Creating user document
 export const createUserDocument = async (userAuth) => {
     if(userAuth){
-        let reference = firestore.doc(`ngagePosts/${userAuth.uid}`)
+        let reference = firestore.doc(`userData/${userAuth.uid}`)
         let snapshot = await reference.get()
         if(!snapshot.exists){
             let { displayName, uid, email } = userAuth
@@ -38,7 +38,7 @@ export const createUserDocument = async (userAuth) => {
             // let postDesc = ""
             // let postLink = ""
             // let postImage = ""
-            let postData = []
+            let userPosts = []
             let author = displayName
             try {
                 reference.set({
@@ -46,7 +46,7 @@ export const createUserDocument = async (userAuth) => {
                     uid,
                     email,
                     createdAt,
-                    postData,
+                    userPosts,
                     author
                 })
             } catch (e) {

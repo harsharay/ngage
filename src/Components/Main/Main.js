@@ -12,12 +12,15 @@ import "./Main.css"
 const Main = () => {
     const apiKey = "aea11fb488e7be30acbfb6e5c48beade"
 
+    let date;
+
     const [inputData, setInputData] = useState("")
     const [userData, setUserData] = useState("")
     const [previewData, setPreviewData] = useState({})
     const [pinnedData, setPinnedData] = useState({})
     const [commentsToThePost, setCommentsToThePost] = useState([])
     const [displayImage, setDisplayImage] = useState("")
+    const [partOfUrl, setPartOfUrl] = useState("")
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
@@ -35,6 +38,11 @@ const Main = () => {
     }
 
     const generateLinkPreview = () => {
+        date = new Date()
+        let seconds = date.getTime()
+        console.log(43, seconds)
+        setPartOfUrl(String(seconds).substr(6))
+        
         if(inputData.length>0) {
             fetch(`http://api.linkpreview.net/?key=${apiKey}&q=${inputData}`)
             .then(data => data.json())
@@ -44,15 +52,21 @@ const Main = () => {
 
     const handleAddingPin = async () => {
         setPinnedData(previewData)
-        await firestore.doc(`/ngagePosts/${userData.uid}`).update({
-            postData : firebase.firestore.FieldValue.arrayUnion({
-                postTitle : previewData.title,
-                postDescription : previewData.description,
-                postUrl : previewData.url,
-                postImage: previewData.image
-            })
+        await firestore.doc(`/userData/${userData.uid}`).update({
+            userPosts : firebase.firestore.FieldValue.arrayUnion({postId: partOfUrl})
         })
         console.log("Done!")
+
+        await firestore.doc(`/ngagePosts/allPostsData`).update({
+            data : firebase.firestore.FieldValue.arrayUnion({
+                    postId: partOfUrl,
+                    title: previewData.title,
+                    description: previewData.description,
+                    url: previewData.url,
+                    image: previewData.image
+                
+            })
+        })
     }
 
     const handleGoogleSignin = () => {
@@ -92,7 +106,7 @@ const Main = () => {
                     <div className="preview-Pin">
                         { (Object.keys(previewData).length>0 && userData) &&  
 
-                        <Link to={{pathname: "/posts/"+encodeURIComponent(previewData.title.replaceAll(" ","")), state:{url : previewData.url }}}>
+                        <Link to={{pathname: "/posts/"+partOfUrl, state:{url : previewData.url, uid : userData.uid }}}>
                             <Button variant="contained" color="default" className="pin-button" onClick={handleAddingPin}>Create a PIN</Button>
                         </Link> 
                         }
