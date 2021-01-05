@@ -58,3 +58,28 @@ export const createUserDocument = async (userAuth) => {
     }
   }
 
+  export const createPostDocument = async postId => {
+      let reference = firestore.doc(`ngagePosts/${postId}`)
+      let snapshot = await reference.get()
+      if(!snapshot.exists) {
+        let title = ""
+        let image = ""
+        let url = ""
+        let description = ""
+        let comments = []
+        try {
+            reference.set({
+            title,
+            image,
+            description,
+            url,
+            comments
+            })
+        } catch (e) {
+            console.log(`${e.message} is the Error`)
+        }
+      } else {
+          return
+      }
+  }
+

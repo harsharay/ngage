@@ -1,0 +1,76 @@
+.navBar {
+    /* border: 2px solid forestgreen; */
+    width: 1400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    left: 10px;
+    top: 0;
+    /* border: 1px solid gray; */
+
+}
+
+.Logo {
+    text-decoration: none;
+}
+
+.nav-menuItems {
+    /* margin-right: 0px; */
+    /* border: 2px solid red; */
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    left: 500px;
+}
+
+.nav-myPosts {
+    text-decoration: none;
+    font-size: 16pt;
+    color: blue;
+}
+
+.nav-home {
+    text-decoration: none;
+    font-size: 16pt;
+    color: blue;
+}
+
+.nav-signIn {
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    margin-right: -13px;
+}
+
+.signIn-userDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* border: 2px solid red; */
+    width: 140%;
+    margin-left: 50px;
+}
+
+.displayImage {
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    /* margin-top: 0px; */
+}
+
+.nav-googleButton {
+    /* position: absolute; */
+    background-color: rgb(184, 214, 236) !important;
+    color: black !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}

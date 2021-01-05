@@ -2,36 +2,45 @@ import React, { useState, useEffect } from "react"
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom"
-import { auth, createUserDocument, firestore, googleSignin } from "../../FirebaseFunctions/firebaseUtils"
+import { firestore, createPostDocument } from "../../FirebaseFunctions/firebaseUtils"
 import firebase from "firebase/app";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
+// import { BsArrowRight } from "react-icons/bs";
+
+import { connect } from "react-redux"
 
 import "./Main.css"
 
 
-const Main = () => {
+const Main = ({ allUserData }) => {
     const apiKey = "aea11fb488e7be30acbfb6e5c48beade"
 
     let date;
 
+    const [domainName, setDomainName] = useState("")
     const [inputData, setInputData] = useState("")
     const [userData, setUserData] = useState("")
     const [previewData, setPreviewData] = useState({})
     const [pinnedData, setPinnedData] = useState({})
-    const [commentsToThePost, setCommentsToThePost] = useState([])
-    const [displayImage, setDisplayImage] = useState("")
+    // const [commentsToThePost, setCommentsToThePost] = useState([])
     const [partOfUrl, setPartOfUrl] = useState("")
+    const [redirectLink, setRedirectLink] = useState("")
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            setUserData(user)
-            createUserDocument(user)
-            if(user) {
-                setDisplayImage(user.providerData[0].photoUrl)
-            }
-            console.log(28, user.displayName)
-        })
-    },[])
+        // auth.onAuthStateChanged(user => {
+        //     setUserData(user)
+        //     createUserDocument(user)
+        //     if(user) {
+        //         setDisplayImage(user.providerData[0].photoUrl)
+        //     }
+        //     // console.log(28, user.displayName)
+        // })
+        setUserData(allUserData)
+        
+        // console.log(41, allUserData.providerData[0])
+
+        setDomainName(window.location.hostname)
+    },[allUserData])
 
     const handleSaveInputData = e => {
         setInputData(e.target.value)
@@ -48,6 +57,9 @@ const Main = () => {
             .then(data => data.json())
             .then(json => setPreviewData(json))
         }
+        createPostDocument(String(seconds).substr(6))
+        setInputData("")
+        setRedirectLink("")
     }
 
     const handleAddingPin = async () => {
@@ -56,59 +68,66 @@ const Main = () => {
             userPosts : firebase.firestore.FieldValue.arrayUnion({postId: partOfUrl})
         })
         console.log("Done!")
+        
 
-        await firestore.doc(`/ngagePosts/allPostsData`).update({
-            data : firebase.firestore.FieldValue.arrayUnion({
-                    postId: partOfUrl,
-                    title: previewData.title,
-                    description: previewData.description,
-                    url: previewData.url,
-                    image: previewData.image
-                
-            })
+        await firestore.doc(`/ngagePosts/${partOfUrl}`).update({
+            postId: partOfUrl,
+            title: previewData.title,
+            description: previewData.description,
+            url: previewData.url,
+            image: previewData.image,
+            // comments: []
         })
+        setRedirectLink(`${domainName}:3000/posts/${partOfUrl}`)
     }
 
-    const handleGoogleSignin = () => {
-        googleSignin()
-    }
+    // const handleGoogleSignin = () => {
+    //     googleSignin()
+    // }
 
-    const signOut = () => {
-        auth.signOut()
-    }
+    // const signOut = () => {
+    //     auth.signOut()
+    // }
 
     return (
         <div className="mainBlock">
-            { userData ? 
+            {/* { userData ? 
                 <div className="signedDetails">
                     <p>Welcome {userData.displayName}</p> 
                     <Button variant="contained" color="primary" className="googleSignOut" onClick={signOut}>Sign out</Button>
                 </div>
                 : 
                 <Button variant="contained" color="primary" className="googleSignin" onClick={handleGoogleSignin}><FcGoogle className="googleIconSignin"/>Sign in</Button> 
-            }
+            } */}
             <div className="textAndButtons">
-                <TextField value={inputData} onChange={handleSaveInputData} className="inputField" id="outlined-basic" variant="outlined" />
+                <TextField value={inputData} onChange={handleSaveInputData} className="inputField" id="outlined-basic" variant="outlined" InputProps={{className: "textColor"}}/>
                 <Button variant="contained" color="primary" onClick={generateLinkPreview}>GO</Button>
             </div>
             { Object.keys(previewData).length>0 && 
                 <>
                     <div className="preview">
-                        <div className="preview-Content">
-                        { Object.keys(previewData).length>0 && <img src={previewData.image} alt={previewData.title} className="preview-Image"/> }
-                            <div className="preview-Text">
-                                <p className="preview-Title">{previewData.title}</p>
-                                { Object.keys(previewData).length>0 && <p className="preview-Desc">{previewData.description.slice(0,400)}...</p> }
-                                <a href={previewData.url}  title={previewData.title} className="preview-Link" target="_blank" rel="noreferrer">{previewData.url}</a>
-                            </div>
+                        <div className="postMainContent">
+                        <img src={previewData.image} alt={previewData.title} />
+                        <div className="postMainContent-text">
+                            <h1>{previewData.title}</h1>
+                            {previewData.description && <p>{previewData.description.slice(0,200)}...</p>}
+                            <a href={previewData.url}>{previewData.url}</a>
                         </div>
+                </div> 
                     </div> 
                     <div className="preview-Pin">
                         { (Object.keys(previewData).length>0 && userData) &&  
-
-                        <Link to={{pathname: "/posts/"+partOfUrl, state:{url : previewData.url, uid : userData.uid }}}>
-                            <Button variant="contained" color="default" className="pin-button" onClick={handleAddingPin}>Create a PIN</Button>
-                        </Link> 
+                            <>
+                                <Button variant="contained" color="default" className="pin-button" onClick={handleAddingPin}>Create a POST</Button>
+                                { redirectLink && 
+                                    <div className="pinRedirectLink">
+                                        {/* <p className="pinRedirectLink-content">Pin created at <BsArrowRight /> </p> */}
+                                        <Link to={{pathname: "/posts/"+partOfUrl, state:{url : previewData.url, uid : userData.uid }}} className="pinRedirectLink-link" target="_blank">
+                                            Check out the post
+                                        </Link> 
+                                    </div>
+                                }
+                            </> 
                         }
                     </div>
                 </>
@@ -117,4 +136,10 @@ const Main = () => {
     )
 }
 
-export default Main;
+const mapStateToProps = state => {
+    return {
+        allUserData : state.userData
+    }   
+}
+
+export default connect(mapStateToProps)(Main);
