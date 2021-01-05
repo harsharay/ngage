@@ -15,17 +15,18 @@ const MyPosts = ({ allUserData }) => {
     let data = []
 
     useEffect(() => {
-        setUserData(allUserData)
-        if(Object.keys(allUserData).length>0) {
-            console.log(19, allUserData, typeof(allUserData))
-        }else {
-            console.log(22, "empty")
+        console.log(18, allUserData)
+    },[allUserData])
+
+    useEffect(() => {
+        if(allUserData && Object.keys(allUserData).length>0) {
+            setUserData(allUserData)
         }
     },[allUserData])
 
     //Retrieving all the post id's of the user's
     const retrievePostsIds = async () => {
-        let reference = await firestore.collection('userData').where("uid","==",userData.uid).get()
+        let reference = await firestore.collection('userData').where("uid","==",allUserData.uid).get()
         reference.forEach(item => {
             setAllPostIds(item.data().userPosts)
         })
@@ -33,10 +34,10 @@ const MyPosts = ({ allUserData }) => {
 
     //Calling the retrieval of post id's function
     useEffect(() => {
-        if(Object.keys(userData).length > 0) {
+        if(allUserData && Object.keys(allUserData).length>0) {
             retrievePostsIds()
         }
-    },[userData])
+    },[allUserData])
     
 
     let loadPostData = async (id) => {
@@ -73,18 +74,25 @@ const MyPosts = ({ allUserData }) => {
 
     return (
         <div className="myPostsBlock">
-            <p>All your posts will be here</p>
-            { (allPostDetails.data) &&
-                <div className="alLPosts">
-                    { allPostDetails.data.map((item, index) => {
-                        return (
-                            <div className="singlePost" key={index}>
-                                <Link to={"/posts/"+item.postId} target="_blank">{item.title} <span className="linkIcon"><MdLink /></span></Link>
-                            </div>
-                        )
-                    })}
-                </div> 
-            }
+            {allUserData ? 
+                <>
+                    <p>Your posts</p>
+                    { (allPostDetails.data) &&
+                        <div className="alLPosts">
+                            { allPostDetails.data.map((item, index) => {
+                                return (
+                                    <div className="singlePost" key={index}>
+                                        <Link to={"/posts/"+item.postId} target="_blank">{item.title} <span className="linkIcon"><MdLink /></span></Link>
+                                    </div>
+                                )
+                            })}
+                        </div> 
+                    }
+                </>
+            
+            : 
+                <p className="signIn-Alert-Message">Please sign in</p>}
+            
         </div>
     )
 }
