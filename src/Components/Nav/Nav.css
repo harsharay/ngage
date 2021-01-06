@@ -1,11 +1,11 @@
 .navBar {
     /* border: 2px solid forestgreen; */
-    width: 1400px;
+    width: 1780px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     position: absolute;
-    left: 10px;
+    left: -200px;
     top: 0;
     /* border: 1px solid gray; */
 }
@@ -63,6 +63,7 @@
     width: 50px;
     height: 50px;
     /* margin-top: 0px; */
+    cursor: pointer;
 }
 
 .nav-googleButton {
@@ -73,3 +74,43 @@
     font-weight: 600 !important;
     font-size: 16px !important;
 }
+
+.signOutBlock {
+    position: absolute;
+    top: 70px;
+    right: -92px;
+    z-index: 100;
+    height: 50px;
+    /* border: 1px solid black; */
+    /* border-top: 0; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* -webkit-box-shadow: 0px 16px 18px -13px rgba(184,225,238,1);
+    -moz-box-shadow: 0px 16px 18px -13px rgba(184,225,238,1);
+    box-shadow: 0px 16px 18px -13px rgba(184,225,238,1); */
+    border-radius: 10px;
+    /* background-color: ; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.closeIcon {
+    cursor: pointer;
+    /* position: relative;
+    right: -45px; */
+}
+
+.disappear {
+    display: none;
+}
+
+.signOutButton {
+    background-color: rgb(184, 214, 236) !important;
+    color: black !important;
+}
+

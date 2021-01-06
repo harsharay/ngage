@@ -76,22 +76,28 @@ const MyPosts = ({ allUserData }) => {
         <div className="myPostsBlock">
             {allUserData ? 
                 <>
-                    <p>Your posts</p>
-                    { (allPostDetails.data) &&
-                        <div className="alLPosts">
-                            { allPostDetails.data.map((item, index) => {
-                                return (
-                                    <div className="singlePost" key={index}>
-                                        <Link to={"/posts/"+item.postId} target="_blank">{item.title} <span className="linkIcon"><MdLink /></span></Link>
-                                    </div>
-                                )
-                            })}
-                        </div> 
+                    { (allPostDetails.data && allPostDetails.data.length>0) ? 
+                        <>
+                            <p className="postTitle">Your posts</p>
+                            { (allPostDetails.data) &&
+                                <div className="alLPosts">
+                                    { allPostDetails.data.map((item, index) => {
+                                        return (
+                                            <div className="singlePost" key={index}>
+                                                <Link to={"/posts/"+item.postId} target="_blank">{item.title} <span className="linkIcon"><MdLink /></span></Link>
+                                            </div>
+                                        )
+                                    })}
+                                </div> 
+                            }
+                        </>
+                    :
+                        <p className="signIn-Alert-Message">Looks like there are no posts! Go hereAdd some post bruh!</p>
                     }
                 </>
             
             : 
-                <p className="signIn-Alert-Message">Please sign in</p>}
+                <p className="signIn-Alert-Message">Please sign in to see our posts</p>}
             
         </div>
     )

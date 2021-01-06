@@ -91,14 +91,9 @@ const Main = ({ allUserData }) => {
 
     return (
         <div className="mainBlock">
-            {/* { userData ? 
-                <div className="signedDetails">
-                    <p>Welcome {userData.displayName}</p> 
-                    <Button variant="contained" color="primary" className="googleSignOut" onClick={signOut}>Sign out</Button>
-                </div>
-                : 
-                <Button variant="contained" color="primary" className="googleSignin" onClick={handleGoogleSignin}><FcGoogle className="googleIconSignin"/>Sign in</Button> 
-            } */}
+            <div className="main-info">
+                <p>Insert any link below</p>
+            </div>
             <div className="textAndButtons">
                 <TextField value={inputData} onChange={handleSaveInputData} className="inputField" id="outlined-basic" variant="outlined" InputProps={{className: "textColor"}}/>
                 <Button variant="contained" color="primary" onClick={generateLinkPreview}>GO</Button>
@@ -118,7 +113,7 @@ const Main = ({ allUserData }) => {
                     <div className="preview-Pin">
                         { (Object.keys(previewData).length>0 && userData) &&  
                             <>
-                                <Button variant="contained" color="default" className="pin-button" onClick={handleAddingPin}>Create a POST</Button>
+                                <Button variant="contained" color="default" className="pin-button" onClick={handleAddingPin}>Create a POST for discussion</Button>
                                 { redirectLink && 
                                     <div className="pinRedirectLink">
                                         {/* <p className="pinRedirectLink-content">Pin created at <BsArrowRight /> </p> */}

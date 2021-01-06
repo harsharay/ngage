@@ -7,6 +7,7 @@ import { auth, createUserDocument, googleSignin } from "../../FirebaseFunctions/
 // import firebase from "firebase/app";
 import { FcGoogle } from "react-icons/fc";
 import Button from '@material-ui/core/Button';
+import { BiHide } from "react-icons/bi"
 
 // import Main from "../Main/Main"
 
@@ -17,6 +18,7 @@ const Nav = (props) => {
     const [userData, setUserData] = useState("")
     const [displayImage, setDisplayImage] = useState("")
     const [domainName, setDomainName] = useState("")
+    const [display, setDisplay] = useState(false)
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
@@ -43,6 +45,10 @@ const Nav = (props) => {
         auth.signOut()
     }
 
+    const displaySignOutButton = () => {
+        setDisplay(!display)
+    }
+
 
 
     return (
@@ -55,7 +61,11 @@ const Nav = (props) => {
                     <div className="nav-signIn">
                         <div className="signIn-userDetails">
                             <p><b>{userData.displayName}</b></p>
-                            <img src={displayImage} alt={userData.displayName} className="displayImage" onClick={signOut} title="Sign out"/> 
+                            <img src={displayImage} alt={userData.displayName} className="displayImage" onClick={displaySignOutButton} title="Sign out"/>
+                        </div>
+                        <div className={!display ? "signOutBlock disappear" : "signOutBlock"}>
+                            <p className="closeIcon" title="Close" onClick={displaySignOutButton}><BiHide /></p>
+                            <Button onClick={signOut} variant="contained" className="signOutButton">Sign out</Button>   
                         </div>
                         {/* <Button variant="contained" color="primary" className="googleSignOut" onClick={signOut}>Sign out</Button> */}
                     </div>
