@@ -100,7 +100,7 @@ const Main = ({ allUserData }) => {
                 </div> 
                     </div> 
                     <div className="preview-Pin">
-                        { (Object.keys(previewData).length>0 && userData) &&  
+                        { (Object.keys(previewData).length>0 && userData) ?  
                             <>
                                 <Button variant="contained" color="default" className="pin-button" onClick={handleAddingPin}>Create a POST for discussion</Button>
                                 { redirectLink && 
@@ -112,6 +112,10 @@ const Main = ({ allUserData }) => {
                                     </div>
                                 }
                             </> 
+                            :
+                            <div>
+                                <p className="signInPostAlert">Sign in to create a post</p>
+                            </div>
                         }
                     </div>
                 </>

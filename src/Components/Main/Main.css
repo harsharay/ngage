@@ -197,3 +197,8 @@
     font-weight: 600;
     color: #3450a1;
 }
+
+.signInPostAlert {
+    font-size: 18pt;
+    margin-left: -30px;
+}
