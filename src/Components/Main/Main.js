@@ -53,7 +53,7 @@ const Main = ({ allUserData }) => {
         setPartOfUrl(String(seconds).substr(6))
         
         if(inputData.length>0) {
-            fetch(`http://api.linkpreview.net/?key=${apiKey}&q=${inputData}`)
+            fetch(`https://api.linkpreview.net/?key=${apiKey}&q=${inputData}`)
             .then(data => data.json())
             .then(json => setPreviewData(json))
         }
