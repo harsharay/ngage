@@ -27,18 +27,7 @@ const Main = ({ allUserData }) => {
     const [redirectLink, setRedirectLink] = useState("")
 
     useEffect(() => {
-        // auth.onAuthStateChanged(user => {
-        //     setUserData(user)
-        //     createUserDocument(user)
-        //     if(user) {
-        //         setDisplayImage(user.providerData[0].photoUrl)
-        //     }
-        //     // console.log(28, user.displayName)
-        // })
         setUserData(allUserData)
-        
-        // console.log(41, allUserData.providerData[0])
-
         setDomainName(window.location.hostname)
     },[allUserData])
 
