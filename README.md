@@ -1,6 +1,6 @@
 Live Demo: https://desolate-stream-20642.herokuapp.com/
 
-![Website Preview](https://github.com/harsharay/ngage/blob/master/Ngage-discussion-platform.png)
+![Website Preview](https://github.com/harsharay/ngage/blob/master/Ngage-discussion-platform.jpeg)
 
 A discussion portal where users can create posts and discuss on those posts. Users can get real time updates on the comments of the posts. 
 Developed using React in front-end, Firestore as the database and for authentication.
